@@ -8,8 +8,28 @@ struct Player {
     games_played: i32,
 }
 
+struct Cents(u64);
+
+struct Money {
+    amount: i64,
+    cents: Cents,
+}
+
+/*
+    TODO:
+    [] handle inproper input (expect number gets str)
+    [] show player stats after game end
+    [] allow player to bet on matching individual numbers
+    [] decrement on money breaks from 0.97 -> 0.96000004 (use decimal types) (impelemt Money for money in Player)
+*/
+
 fn main() {
     println!("Welcome to the Terminal Lottery");
+
+    let money = Money {
+        amount: 1,
+        cents: Cents(100),
+    };
 
     println!("Enter your username: ");
     let mut player = Player {
@@ -55,6 +75,7 @@ fn main() {
                 }
             
                 evaluate_game(&mut guesses, &mut lotto);
+                jackpot = jackpot * 0.3 as f32;
             },
             "exit" => {
                 println!("exiting...");
